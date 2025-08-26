@@ -126,11 +126,11 @@ print("Análisis de valores:")
 
 for valor in valores_experimento:
     if valor > 20.0:
-        print(f"  {valor} → ¡VALOR CRÍTICO! (mayor que 20.0)")
+        print(f"  {valor}  ¡VALOR CRÍTICO! (mayor que 20.0)")
     elif valor < 10.0:
-        print(f"  {valor} → Valor bajo (menor que 10.0)")
+        print(f"  {valor} Valor bajo (menor que 10.0)")
     else:
-        print(f"  {valor} → Valor normal")
+        print(f"  {valor}  Valor normal")
 
 # =============================================================================
 # 5. CONTROLADORES ADICIONALES: break, continue, pass
@@ -138,6 +138,8 @@ for valor in valores_experimento:
 print("\n" + "="*60)
 print("5. CONTROLADORES ADICIONALES: break, continue, pass")
 print("="*60)
+
+valores_experimento = [12.5, 8.3, 15.7, 22.1, 9.8, 18.4, 25.0, 7.2]
 
 # Ejemplo de break: Detener cuando se encuentra un valor
 print("\n--- 5.1 Uso de break ---")
@@ -147,6 +149,8 @@ for valor in valores_experimento:
     if valor > 15.0:
         print(f"  ¡Encontrado! {valor} > 15.0")
         break
+
+print("\n" + 60*"*")
 
 # Ejemplo de continue: Saltar valores específicos
 print("\n--- 5.2 Uso de continue ---")
@@ -166,6 +170,36 @@ for valor in valores_experimento:
         print(f"  Valor normal: {valor}")
 
 # =============================================================================
+# 6. ALGORITMO PARA VERIFICAR NÚMEROS PRIMOS
+# =============================================================================
+print("\n" + "="*60)
+print("6. ALGORITMO PARA VERIFICAR NÚMEROS PRIMOS")
+print("="*60)
+
+number = 23
+prime = True
+
+if number == 2:
+    prime = True
+
+elif number % 2 == 0:
+    prime = True
+    print(f'¿{number} es primo?: {prime}')
+
+else:
+    # Verificar divisibilidad por números impares
+    i = 3
+    while i  < number:
+
+        if number % i == 0:
+            prime = False
+            print(f'¿{number} es primo?: {prime}')
+            break
+
+        i += 2
+
+print(f'¿{number} es primo?: {prime}')
+# =============================================================================
 # EJECUCIÓN PRINCIPAL
 # =============================================================================
 if __name__ == "__main__":
@@ -178,11 +212,11 @@ if __name__ == "__main__":
         "2. Bucle while con aplicaciones físicas", 
         "3. Bucle for con range() y tuplas",
         "4. Ejercicios prácticos de física computacional",
-        "5. Controladores adicionales (break, continue, pass)"
+        "5. Controladores adicionales (break, continue, pass)",
+        "6. Algoritmo para verificar números primos",
     ]
     for i, tema in enumerate(temas, 1):
         print(f"  {i}. {tema}")
     
     print("\n" + "="*60)
     print("¡Próxima clase: Funciones y manejo de excepciones!")
-    print("="*60)

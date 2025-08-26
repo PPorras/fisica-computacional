@@ -1,0 +1,74 @@
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+env/
+*.env
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Archivos de configuración de Jupyter
+.jupyter/
+.profile_default/
+.ipython/
+
+# Archivos de salida de notebooks (datos o figuras generadas)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.pdf
+*.svg
+*.eps
+
+# Archivos de datos (generados o pesados)
+*.dat
+*.out
+*.log
+*.csv
+*.tsv
+*.h5
+*.npy
+*.npz
+*.mat
+
+# Directorios comunes para resultados
+results/
+output/
+outputs/
+plots/
+figures/
+data/processed/
+data/tmp/
+
+# Archivos de sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Archivos de editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# Compilaciones de LaTeX (si hay reportes en PDF o prácticas escritas)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+
