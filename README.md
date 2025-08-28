@@ -14,6 +14,8 @@ Este repositorio contiene todo el material del curso de Física Computacional, i
 git clone <repo-url>
 cd fisica-computacional
 
+git fetch origin
+
 # Configurar rama de desarrollo y crear rama personal
 git checkout numeric-dev
 git checkout -b PPorras-numeric-dev 
