@@ -1,0 +1,151 @@
+\documentclass[12pt]{article}
+
+% Paquetes
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{Física Computacional \\ Tarea 1}
+\author{Pedro Porras Flores\\ Efraín Ossmar Díaz Pérez}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Instrucciones}
+Resuelva los siguientes ejercicios implementando soluciones en Python. Utilice variables adecuadas, estructuras de control de flujo y funciones. Incluya comentarios en su código y muestre los resultados obtenidos.
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+\item La dinámica de un cometa está gobernada por la fuerza gravitacional entre el cometa y el Sol, \(\mathbf{f} = -G \frac{M m}{r^3} \mathbf{r}\), donde \(G = 6.67 \times 10^{-11} \text{N·m}^2/\text{kg}^2\) es la constante gravitacional, \(M = 1.99 \times 10^{30} \text{kg}\) es la masa del Sol, \(m\) es la masa del cometa, \(\mathbf{r}\) es el vector de posición del cometa medido desde el Sol, y \(r\) es la magnitud de \(\mathbf{r}\). Escriba un programa para estudiar el movimiento del cometa Halley, que tiene una distancia de afelio (punto más alejado del Sol) de \(5.28 \times 10^{12} \text{m}\) y una velocidad en el afelio de \(9.12 \times 10^{2} \text{m/s}\). 
+
+\begin{enumerate}[label=\alph*)]
+\item ¿Cuáles son las elecciones apropiadas de unidades de tiempo y longitud para este problema?
+\item Escriba un programa en Python que convierta unidades del Sistema Internacional a unidades astronómicas apropiadas para simulaciones orbitales, realice lo siguiente:
+\begin{itemize}
+
+
+\item Solicite al usuario una distancia en metros usando la función \texttt{input()}.
+\item Convierta el valor ingresado a un número de punto flotante usando \texttt{float()}.
+\item Convierta esta distancia a Unidades Astronómicas (UA) usando la relación: \
+\texttt{UA = metros / 1.496e11} (donde 1 UA = 1.496 × 10$^{11}$ m).
+\item Para velocidades, solicite al usuario un valor en m/s y conviértalo a UA/año usando: \
+\texttt{UA\_a\~no = m\_s * (365.25 * 24 * 3600) / 1.496e11}.
+\item Implemente esta conversión en una función.
+\item Verifique que los valores convertidos sean adecuados para la simulación del cometa Halley.
+\end{itemize}
+\item  Discuta el error generado por el programa en cada período del cometa Halley.
+\end{enumerate}
+
+\item Use la función \texttt{isPrime()} importándola desde \texttt{misFunciones.py} para realizar lo siguiente:
+
+\begin{enumerate}[label=\alph*)]
+
+\item Una función llamada \texttt{nPrimes()} que reciba un entero positivo $n$ y que genere los primeros $n$ primos.
+\item Una función \texttt{twinPrimes} Recibe un entero positivo $n$ y devuelve una lista de tuplas con todos los pares de primos gemelos menores o iguales a $n$. Se consideran primos gemelos aquellos pares de números primos que difieren en 2 unidades (como 3 y 5, o 11 y 13).
+\item Función \texttt{descomposition()} que recibe un entero positivo $n$ y devuelve una cadena con la descomposición en factores primos con potencias. Por ejemplo, para $n = 60$ devolvería \texttt{"$2^2 * 3^1 * 5^1$"}. 
+
+\end{enumerate}
+
+\item Escriba una función \texttt{nameFile()} debe recibir como primer parámetro una cadena que represente el nombre de una simulación (por ejemplo, \texttt{"Pendulum"}). Adicionalmente, podrá aceptar argumentos posicionales (\texttt{*args}) o argumentos de palabra clave (\texttt{**kwargs}) que representen condiciones iniciales o parámetros del sistema.
+
+
+\begin{itemize}
+    \item Los valores numéricos deben ser convertidos reemplazando el punto decimal por un guion bajo (por ejemplo, \texttt{1.2 → "1\_2"})
+    \item El nombre del archivo resultante debe seguir el formato:\\ \texttt{"Nombre-Parametro1-Parametro2-...-ParametroN.dat"}
+\end{itemize}
+
+\subsection*{Ejemplos de uso:}
+
+\begin{lstlisting}[language=Python]
+nameFile("Pendulum", [1.2, 10.5]) 
+# Retorna: "Pendulum-conditions-1_2-10_5.dat"
+
+nameFile("Oscillator", [1.2, 10.5] ,amplitude=2.5, frequency=1.8) 
+# Retorna: "Oscillator-conditions-1_2-10_5-amplitude-2_5-frequency-1_8.dat"
+\end{lstlisting}
+
+La función debe ser capaz de manejar cualquier combinación de argumentos posicionales y nombrados, formateando consistentemente los valores numéricos según la convención establecida.
+
+
+  \item   
+  Escriba funciones que calcule las funciones $\sin(x)$, $\cos(x)$, $\tan(x)$, $log(x)$ y   utilizando sus series de Taylor.  
+  El cálculo debe detenerse cuando el último término de la serie sea menor que la precisión de la máquina. Además los nombres de las funciones deben ser \texttt{mysin()}, \texttt{mycos()}, etc.
+  
+\item 
+\begin{enumerate}
+\item Escriba un programa para calcular la media \(\bar{x}\) y la desviación estándar \(\sigma\) de una secuencia finita \(x_i\). Su programa debe aceptar un vector \(\mathbf{x}\) de dimensión \(n\) como entrada y producir la media y la desviación estándar de la secuencia como salida. Para la desviación estándar, pruebe tanto la fórmula de dos pasos
+
+\[
+\sigma = \left[ \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2 \right]^{1/2}
+\]
+
+como la fórmula de un paso
+
+\[
+\sigma = \left[ \frac{1}{n-1} \left( \sum_{i=1}^{n} x_i^2 - n\bar{x}^2 \right) \right]^{1/2}
+\]
+
+y compare los resultados para una secuencia de entrada de su elección.
+
+\item ¿Puede diseñar una secuencia de datos de entrada que ilustre dramáticamente la diferencia numérica entre estas dos fórmulas matemáticamente equivalentes? (Precaución: Tenga cuidado de no tomar la raíz cuadrada de un número negativo.)
+
+\end{enumerate}
+\end{enumerate}
+\begin{lstlisting}[language=Python, caption=Ejemplo de estructura en Python]
+# Importar librerias
+from myLibraries import myFunction
+
+
+def funcionEjemplo(parametro):
+    '''
+    Docstring
+    '''
+    # Implementar solucion aqui
+    resultado = parametro**2
+    return resultado
+
+# Programa principal
+if __name__ == "__main__":
+    datos = [1, 2, 3, 4]
+    resultado = funcion_ejemplo(datos)
+    print("Resultado:", resultado)
+\end{lstlisting}
+\end{document}
+
