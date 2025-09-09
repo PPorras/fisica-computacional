@@ -28,6 +28,10 @@ class Vector3D:
         self.z = z
 
     # ==== MÉTODOS ====
+    def __repr__(self):
+        return f"Vector3D({self.x}, {self.y}, {self.z})"
+
+
     def norm(self):
         """Devuelve la norma euclídea"""
         return (self.x**2 + self.y**2 + self.z**2) ** 0.5
@@ -48,8 +52,6 @@ class Vector3D:
                         scalar * self.y,
                         scalar * self.z)
 
-    def __repr__(self):
-        return f"Vector3D({self.x}, {self.y}, {self.z})"
 
 
 # ----------------------------

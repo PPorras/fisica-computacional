@@ -147,7 +147,8 @@ def exponencial_taylor(x: float, tol: float = None) -> float:
         
         # 2. Si tol es None, asignar epsilon de maquina
         if tol is None:
-            tol = sys.float_info.epsilon
+            ###tol = sys.float_info.epsilon
+            tol = epsilon_maquina()
         elif tol <= 0:
             raise ValueError(f"tol debe ser positiva, se recibió: {tol}")
         
@@ -171,8 +172,8 @@ def exponencial_taylor(x: float, tol: float = None) -> float:
             nuevo_resultado = resultado + termino
             
             # Verificar posibles problemas numéricos
-            if math.isinf(nuevo_resultado):
-                raise OverflowError(f"Overflow al calcular e^{x}")
+            #if math.isinf(nuevo_resultado):
+            #    raise OverflowError(f"Overflow al calcular e^{x}")
             
             # Criterio de parada: el término es insignificante comparado con el resultado
             if abs(termino) < tol * abs(nuevo_resultado):
@@ -183,7 +184,7 @@ def exponencial_taylor(x: float, tol: float = None) -> float:
             n += 1
             
             # Prevención de bucle infinito (aunque debería converger)
-            if n > 10000:
+            if n > 1000:
                 raise RuntimeError(f"No se alcanzó convergencia en {n} iteraciones")
         
         # 7. Devolver resultado final
@@ -209,12 +210,12 @@ if __name__ == "__main__":
     #####print("'x'! =", myFactorial("x"))
 
     ###### Pruebas de la función
-    #####print("\nPruebas de exponencial_taylor:")
-    #####print("e^0 =", exponencial_taylor(0))
-    #####print("e^1 =", exponencial_taylor(1))
-    #####print("e^-2 =", exponencial_taylor(-2))
-    #####print("Con tolerancia inválida:", exponencial_taylor(1, tol=-0.1))
-    #####print("Con tipo inválido:", exponencial_taylor("a"))
+    print("\nPruebas de exponencial_taylor:")
+    print("e^0 =", exponencial_taylor(0.0))
+    print("e^1 =", exponencial_taylor(1.0))
+    print("e^-2 =", exponencial_taylor(-2.0))
+    print("Con tolerancia inválida:", exponencial_taylor(1, tol=-0.1))
+    print("Con tipo inválido:", exponencial_taylor("a"))
 
     print(f'\n El epsilon de maquina es {epsilon_maquina()}')
     print(f'\n El epsilon de maquina entre dos más uno es {1.0 +  0.5*epsilon_maquina()}')
