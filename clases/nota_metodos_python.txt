@@ -1,0 +1,176 @@
+# METODOS PYTHON - NOTA PARA CLASE 
+# ================================
+
+# JOIN() - EL "PEGAMENTO" DE STRINGS
+# ----------------------------------
+# Une elementos de una lista usando un separador
+
+EJEMPLOS:
+", ".join(["A", "B", "C"])       -> "A, B, C"
+"-".join(["1", "2", "3"])        -> "1-2-3"
+"\n".join(["linea1", "linea2"])  -> "linea1\nlinea2"
+
+IMPORTANTE:
+- Solo funciona con elementos STRING
+- Para numeros: usar map(str, lista) primero
+
+# ENUMERATE() - EL CONTADOR INTELIGENTE
+# -------------------------------------
+# Agrega un indice a cada elemento de un iterable
+
+EJEMPLO:
+frutas = ["manzana", "naranja"]
+for indice, fruta in enumerate(frutas):
+    print(f"{indice}: {fruta}")
+
+SALIDA:
+0: manzana
+1: naranja
+
+PARA EMPEZAR DESDE 1:
+for indice, fruta in enumerate(frutas, start=1):
+
+# MAP() - EL TRANSFORMADOR
+# ------------------------
+# Aplica una funcion a cada elemento de un iterable
+
+EJEMPLOS:
+numeros = [1, 2, 3]
+map(str, numeros)                 -> ['1', '2', '3']
+map(lambda x: x*2, numeros)       -> [2, 4, 6]
+
+IMPORTANTE:
+- Devuelve objeto map, no lista
+- Convertir a lista: list(map(...))
+
+# ISINSTANCE() - EL VERIFICADOR DE TIPO
+# -------------------------------------
+# Verifica si un valor es de uno o varios tipos
+
+EJEMPLOS:
+isinstance(5, (int, float))       -> True
+isinstance(3.14, (int, float))    -> True  
+isinstance("hola", (int, float))  -> False
+
+USO TIPICO:
+if isinstance(valor, (int, float)):
+    # Es un numero
+else:
+    # No es numero
+
+# SUM() - EL CALCULADOR DE TOTALES
+# --------------------------------
+# Suma todos los elementos de un iterable
+
+EJEMPLOS:
+sum([1, 2, 3, 4])                 -> 10
+sum([1.5, 2.5, 3.0])              -> 7.0
+
+# Con valor inicial:
+sum([1, 2, 3], 10)                -> 16 (10 + 1 + 2 + 3)
+
+# Con range():
+sum(range(1, 6))                  -> 15 (1+2+3+4+5)
+sum(range(5))                     -> 10 (0+1+2+3+4)
+
+# REVERSED(RANGE(N)) - CONTADOR INVERTIDO
+# ---------------------------------------
+# Crea una secuencia de numeros en orden descendente
+
+EJEMPLOS:
+list(reversed(range(5)))          -> [4, 3, 2, 1, 0]
+list(reversed(range(1, 6)))       -> [5, 4, 3, 2, 1]
+
+# Para contar hacia atrás:
+for i in reversed(range(3)):
+    print(i)                      # 2, 1, 0
+
+# Equivalente a:
+for i in range(2, -1, -1):
+    print(i)                      # 2, 1, 0
+
+# COMBINACION CLASICA: JOIN + MAP
+# --------------------------------
+data = [[1, 2], [3, 4]]
+
+# Paso a paso:
+# 1. map(str, fila) convierte numeros a texto
+# 2. "\t".join() une columnas con tabs
+# 3. "\n".join() une filas con saltos de linea
+
+resultado = "\n".join(["\t".join(map(str, fila)) for fila in data])
+
+RESULTADO:
+1    2
+3    4
+
+# COMBINACIONES UTILES CON SUM() Y REVERSED()
+# -------------------------------------------
+
+# Sumar una matriz:
+matriz = [[1, 2], [3, 4]]
+total = sum(sum(fila) for fila in matriz)  # 10
+
+# Contar regresivo con indice:
+for i, numero in enumerate(reversed(range(5))):
+    print(f"Posicion {i}: {numero}")
+# Salida:
+# Posicion 0: 4
+# Posicion 1: 3
+# Posicion 2: 2
+# Posicion 3: 1
+# Posicion 4: 0
+
+# Crear patrones numericos:
+# Secuencia descendente formateada
+numeros_desc = "\n".join(map(str, reversed(range(1, 6))))
+print(numeros_desc)
+# Salida:
+# 5
+# 4
+# 3
+# 2
+# 1
+
+# REGLAS MNEMOTECNICAS
+# --------------------
+JOIN            -> "Pegamento entre elementos"
+ENUMERATE       -> "Contador automatico"
+MAP             -> "Transformador en cadena"  
+ISINSTANCE      -> "¿Eres de la familia?"
+SUM             -> "Calculadora de totales"
+REVERSED(RANGE) -> "Contador hacia atras"
+
+# EJEMPLO COMPLETO INTEGRADO
+# --------------------------
+# Convertir matriz numerica a texto formateado con estadisticas
+
+def procesar_matriz(matriz):
+    # Encabezado con indices
+    filas_texto = []
+    
+    # Agregar suma de cada fila
+    for i, fila in enumerate(matriz):
+        if isinstance(fila, list):
+            suma_fila = sum(fila)
+            columnas_texto = "\t".join(map(str, fila))
+            filas_texto.append(f"Fila {i}:\t{columnas_texto}\t| Suma: {suma_fila}")
+    
+    # Agregar total general
+    total_general = sum(sum(fila) for fila in matriz)
+    filas_texto.append(f"TOTAL GENERAL: {total_general}")
+    
+    return "\n".join(filas_texto)
+
+# USO:
+data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(procesar_matriz(data))
+
+# EJEMPLO: CONTADOR REGRESIVO CON FORMATO
+# ---------------------------------------
+print("Cuenta regresiva:")
+for i in reversed(range(1, 6)):
+    print(f" {i}...")
+
+# FIN DE NOTA 
+# -----------------------
