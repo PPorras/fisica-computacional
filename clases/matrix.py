@@ -111,13 +111,7 @@ class Matrix:
         return Matrix([[self.data[i][j] + other.data[i][j] 
                     for j in range(self.cols)] for i in range(self.rows)])
 
-    def __sub__(self, other):
-        """Resta de matrices del mismo tamaño."""
-        # TODO: verificar que tengan misma dimensión
-        # TODO: construir nueva matriz con la resta elemento a elemento
-        # raise ValueError si las dimensiones no coinciden
-        pass
-
+    
     def __mul__(self, other):
         """
         Multiplicación por escalar o por otra matriz.
@@ -151,19 +145,61 @@ class Matrix:
             ###return Matrix(resultado)
             return Matrix([[self.data[i][j]*other for j in range(self.cols)] for i in range(self.rows)])
 
-        elif isinstance(othet, Matrx):
-            for i in range(self.rows):
-                     
-        # TODO: Si other es escalar, multiplicar cada elemento
-        # TODO: Si other es Matrix, verificar compatibilidad de dimensiones
-        # TODO: Implementar multiplicación matricial con suma de productos
-        # TODO: raise TypeError si no es válido
-        ##pass
+
+        elif isinstance(other, Matrix):
+
+            if self.cols != other.rows:
+                raise ValueError("Dimensiones incompatibles para multiplicación.")
+
+            ### Pensamos A = [[a11,a12,a12], [a21,a22,a23], [a31,a32,a33]]
+            ### Pensamos B = [[b11,b12], [b21,b22], [b31,b32]]
+            ### Pensamos C = A*B [[c11,b12], [c21,b22], [c31,b32]]
+
+###            result = self.rows*[0]  #### 3*[0] -> [0,0,0]
+###
+###            for i in range(self.rows):
+###                new_row = other.cols*[0] ### 2*[0] = [0,0]
+###
+###                for j in range(other.cols):
+###                    suma = 0
+###
+###                    for k in range(self.cols):
+###                        suma = suma + self.data[i][k]*other.data[k][j]
+###                    
+###                    new_row[j] = suma ## [0,0]->[algo,0], [algo,0] -> [algo, otracosa] 
+###
+###                result[i] = new_row
+###
+
+            result = [[sum(self.data[i][k] * other.data[k][j] for k in range(self.cols)) for j in range(other.cols)] for i in range(self.rows)]
+            return Matrix(result)
+
+        else:
+            raise TypeError("Operación no soportada.")
+
+    def __sub__(self, other):
+        """Resta de matrices del mismo tamaño."""
+        if self.shape() != other.shape():
+            raise ValueError("Las matrices deben tener las mismas dimensiones.")
+        other = other*(-1) 
+        return self + other
 
     def transpose(self):
         """Devuelve la transpuesta de la matriz."""
-        # TODO: intercambiar filas por columnas
-        pass
+
+        ### Pensamos A = [[a11,a12], [a21,a22], [a31,a32]]
+        ###result = self.cols*[0]
+        ###for i in range(self.cols):
+        ###    new_row = self.rows*[0]
+
+        ###    for j in range(self.rows):
+        ###        new_row[j] = self.data[j][i]
+
+        ###    result[i] = new_row 
+
+        result = [[self.data[j][i] for j in range(self.rows)] for i in range(self.cols)]
+        return Matrix(result)
+
 
 
 # ======================
@@ -194,16 +230,24 @@ if __name__ == "__main__":
     print("\nA + B:")
     print(A + B)   # TODO: implementar suma
 
+    print("\nA - B:")
+    print(A - B)   # TODO: implementar suma
+
     print("\nA * 2 (escalar):")
     ###print(A * 2)   # TODO: implementar multiplicación por escalar
     print(A * 2.0)   # TODO: implementar multiplicación por escalar
-####
-####    C = Matrix([[1, 2],
-####                [3, 4],
-####                [5, 6]])
-####    print("\nA * C (matricial):")
-####    print(A * C)   # TODO: implementar multiplicación de matrices
-####
-####    print("\nTranspuesta de A:")
-####    print(A.transpose())   # TODO: implementar transpuesta
-####
+
+    C = Matrix([[1, 2],
+                [3, 4],
+                [5, 6]])
+
+    print("\nC:")
+    print(C)
+    print("\nA * C (matricial):")
+    print(A * C)   # TODO: implementar multiplicación de matrices
+    
+    print("Matriz A:")
+    print(A)
+    print("\nTranspuesta de A:")
+    print(A.transpose())   # TODO: implementar transpuesta
+
