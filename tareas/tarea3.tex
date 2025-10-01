@@ -1,0 +1,224 @@
+\documentclass[12pt]{article}
+
+% Paquetes
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{Física Computacional \\ Tarea 3}
+\author{Pedro Porras Flores\\ Efraín Ossmar Díaz Pérez}
+
+\date{30 de septiembre del 2025}
+
+\begin{document}
+\maketitle
+
+\section*{Instrucciones}
+Resuelva los siguientes ejercicios implementando soluciones en Python. Utilice variables adecuadas, estructuras de control de flujo y funciones. Incluya comentarios en su código y muestre los resultados obtenidos.
+
+
+
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+\item 
+Considere la ecuación de vibraciones de una viga en voladizo:
+\[
+f(\omega) = \cos(\omega)\cosh(\omega) + 1 .
+\]
+
+
+
+\begin{enumerate}
+\item Encuentre la \emph{menor raíz positiva} de \(f(\omega)\) usando el \textbf{método de bisección} con tolerancia \(10^{-5}\). \\
+%\textbf{Sugerencia de intervalo:} use un bracket con cambio de signo en \([1.8,\,1.9]\) (o comience en \([1.5,\,2.0]\) y refine).
+  \item Grafique \(f(\omega)\) en \(\omega \in [0,\,4]\). Marque en la gráfica el intervalo inicial seleccionado y el punto raíz aproximado.
+  \item Grafique \(|f(\omega_n)|\) vs. iteración \(n\) en escala semilog (eje vertical logarítmico) para evidenciar la convergencia.
+\end{enumerate}
+
+\item 
+Modelo de enfriamiento de Newton:
+\[
+T(t) = T_a + (T_0 - T_a)\,e^{-kt}, \quad
+T_a=20^\circ\text{C},\; T_0=90^\circ\text{C},\; k=0.07\ \text{min}^{-1}.
+\]
+
+
+
+\begin{enumerate}
+\item Encuentre \(t\) tal que \(T(t)=50^\circ\text{C}\) resolviendo
+\[
+f(t) = T_a + (T_0 - T_a)e^{-kt} - 50 = 0,
+\]
+con el \textbf{método de Newton-Raphson}, usando por ejemplo \(t_0=10\). \\
+%\textbf{Sugerencia de intervalo (para ubicar la raíz):} la solución yace en \((11,\,13)\).
+  \item Grafique \(T(t)\) en \(t \in [0,\,30]\) junto con la línea horizontal \(T=50^\circ\text{C}\). Indique el \(t^\ast\) encontrado.
+  \item Grafique \(|f(t_n)|\) vs. iteración \(n\) en escala semilog. Comente el régimen de convergencia observado.
+\end{enumerate}
+
+\item
+Resuelva
+\[
+f(x) = e^{x^2}\,\ln(x^2) - x 
+\]
+mediante el \textbf{método de la secante} con condiciones iniciales \(x_0=0.5\), \(x_1=1.5\). \\
+\textbf{Nota:} \(f\) tiene dos raíces reales, una negativa y una positiva. \\
+%\textbf{Sugerencia de intervalos (cambios de signo):} \((-0.9,\,-0.8)\) y \((1.1,\,1.2)\). Reporte la raíz capturada con sus puntos iniciales.
+
+
+\begin{enumerate}
+  \item Grafique \(f(x)\) en \(x \in [-2,\,2]\). Marque el par inicial \((x_0,x_1)\) y la raíz encontrada.
+  \item Grafique \(|f(x_n)|\) vs. iteración \(n\) en escala semilog. Discuta la sensibilidad a los puntos iniciales.
+\end{enumerate}
+
+\item Programa una versión segura del método de Newton, combinándolo con el método de bisección. Específicamente, comienza con un intervalo de encuadre y realiza un paso de Newton: si la iterada ``quiere'' salir del intervalo, realiza en su lugar un paso de bisección. Repite.
+
+\item Vamos a estudiar la solución de la ecuación de Schrödinger (ES) para un sistema compuesto por un neutrón y un protón (el deuterón) que se mueven dentro de un potencial de caja simple.
+
+Comenzamos nuestra discusión de la ES con el sistema neutrón-protón (deuterón) con un potencial de caja $V(r)$. Definimos la parte radial de la función de onda como $R(r)$ e introducimos la definición $u(r) = rR(r)$. La parte radial de la ES para dos partículas en su sistema de centro de masa y con momento orbital $\ell = 0$ es entonces:
+
+\[
+-\frac{\hbar^2}{2m} \frac{d^2 u(r)}{dr^2} + V(r)u(r) = Eu(r),
+\]
+
+con
+
+\[
+m = 2 \frac{m_p m_n}{m_p + m_n},
+\]
+
+donde $m_p$ y $m_n$ son las masas del protón y del neutrón, respectivamente. Usamos aquí $m = 938 \text{ MeV}$. Nuestro potencial se define como:
+
+\[
+V(r) = \begin{cases}
+-V_0 & \text{para } 0 \leq r < a \\
+0 & \text{para } r \geq a
+\end{cases}
+\]
+
+Los estados ligados corresponden a una energía $E$ negativa, y los estados de dispersión vienen dados por energías positivas. La ES adopta la siguiente forma (sin especificar el signo de $E$):
+
+\[
+\frac{d^2 u(r)}{dr^2} + \frac{2m}{\hbar^2}(V_0 + E)u(r) = 0 \quad \text{para } r < a,
+\]
+
+y
+
+\[
+\frac{d^2 u(r)}{dr^2} + \frac{2m}{\hbar^2}E u(r) = 0 \quad \text{para } r > a.
+\]
+
+Ahora vamos a buscar eventuales estados confinados, es decir, con $E < 0$. El deuterón tiene solo un estado confinado a una energía $E = -2.223 \text{ MeV}$. Discuta las condiciones de contorno sobre la función de onda y utilícelas para mostrar que la solución a la ES es:
+
+\[
+u(r) = A \sin(kr) \quad \text{para } r < a,
+\]
+
+y
+
+\[
+u(r) = B \exp (-\beta r) \quad \text{para } r > a,
+\]
+
+donde $A$ y $B$ son constantes. También hemos definido:
+
+\[
+k = \sqrt{\frac{m(V_0 - |E|)}{\hbar^2}},
+\]
+
+y
+
+\[
+\beta = \sqrt{\frac{m|E|}{\hbar^2}}.
+\]
+
+A continuación, muestre que, utilizando el requisito de continuidad de la función de onda en $r = a$, se obtiene la \textbf{ecuación trascendental}:
+
+\begin{equation}\label{eq:t}
+    k \cot(ka) = -\beta\,. 
+\end{equation}
+
+
+
+Inserte los valores de $V_0 = 60 \text{MeV}$ y $a = 1.45 \text{ fm}$ (1 fm = $10^{-15}$ m) y realice un gráfico de la Ecuación \eqref{eq:t} en función de la energía $E$ para encontrar los eventuales autovalores. Compruebe si estos valores resultan en un estado ligado para $E$.
+
+Una vez que haya localizado en su gráfico el punto o puntos donde se satisface la Ecuación \eqref{eq:t}, obtenga un valor numérico para $E$ utilizando el \textbf{método de Newton-Raphson}, el \textbf{método de bisección} y el \textbf{método de la secante}. Realice un análisis de estos tres métodos y discuta cuántas iteraciones son necesarias para encontrar una solución estable. ¿Cuál es el valor más pequeño posible de $V_0$ que da un estado confinado?
+ 
+
+\end{enumerate}
+
+
+\subsection*{Notas importantes}
+
+\begin{enumerate}
+  \item \textbf{Criterio de tolerancia.}  
+  Todas las implementaciones deben utilizar como criterio de convergencia el \emph{épsilon de máquina}.  
+  En Python se obtiene, por ejemplo, con:
+  \[
+    \texttt{import sys \quad TOL = sys.float\_info.epsilon}
+  \]
+  El criterio de parada debe escribirse como:  
+  \[
+    \texttt{if abs(x\_new - x) < TOL * max(1.0, abs(x\_new))}.
+  \]
+
+  \item \textbf{Uso de librerías reales de física.}  
+  En los ejercicios donde se usen constates físicas importe la librería, $\texttt{from scipy.constants}$, que cuenta con constantes físicas reales:
+  \[
+    \texttt{from scipy.constants import hbar, c, m\_p, m\_n}
+  \]
+  para que los cálculos sean consistentes en unidades y magnitudes físicas.
+
+  \item \textbf{Manejo de errores obligatorio.}  
+  Cada programa debe incluir de manera explícita bloques de manejo de errores utilizando:
+  \[
+    \texttt{try: \quad ... \quad except: \quad ... \quad finally: \quad ...}
+  \]
+  Esto significa que ningún código puede entregarse sin estas estructuras.  
+  Los estudiantes deben prever posibles errores (por ejemplo, división entre cero, intervalos inválidos, derivadas nulas, etc.), capturarlos con \texttt{except}, y asegurarse con \texttt{finally} de liberar recursos o mostrar un mensaje final apropiado.  
+  La ausencia de manejo de errores reducirá la calificación del ejercicio.
+
+  \item \textbf{Funciones auxiliares.}  
+  En caso de requerir funciones matemáticas (por ejemplo, \(\cot\), \(\mathrm{sech}\), etc.), impleméntelas en el archivo \texttt{misFunciones.py} que se encuentra en el repositorio de la clase.  
+  Después, importe dichas funciones en su programa principal. Esto fomenta la modularidad y la reutilización del código.
+
+\end{enumerate}
+
+
+\end{document}
+
