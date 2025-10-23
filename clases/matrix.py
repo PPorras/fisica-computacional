@@ -200,7 +200,12 @@ class Matrix:
         result = [[self.data[j][i] for j in range(self.rows)] for i in range(self.cols)]
         return Matrix(result)
 
-
+    def copy(self):
+        """
+        Devuelve una copia profunda (deep copy) de la matriz.
+        Útil para evitar modificar el objeto original en operaciones destructivas.
+        """
+        return Matrix([row[:] for row in self.data])
 
 # ======================
 # Ejemplo de uso
