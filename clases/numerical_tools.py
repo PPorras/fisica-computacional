@@ -206,6 +206,78 @@ def mi_raiz_cuadrada(x: float, tol: float = None) -> float:
     ##finally:
         ###print(f"Se intentó calcular sqrt({x}) con tolerancia {tol}.")
 
+def mi_seno(x: float, tol: float = None) -> float:
+    """
+    Calcula sin(x) usando la serie de Taylor en 0:
+        sin(x) = x - x^3/3! + x^5/5! - x^7/7! + ...
+
+    Args:
+        x (float): Valor en radianes.
+        tol (float, opcional): Tolerancia relativa para el criterio de parada.
+                               Si no se especifica, se usa el épsilon de máquina.
+
+    Returns:
+        float: Aproximación de sin(x).
+
+    Raises:
+        TypeError: Si x o tol no son del tipo esperado.
+        ValueError: Si tol no es positiva.
+        RuntimeError: Si no converge en el número máximo de iteraciones.
+    """
+    original_x = x
+    try:
+        # Verificaciones de tipo
+        if not isinstance(x, (int, float)):
+            raise TypeError(f"x debe ser numérico, se recibió: {type(x).__name__}")
+        if tol is not None and not isinstance(tol, float):
+            raise TypeError(f"tol debe ser numérico o None, se recibió: {type(tol).__name__}")
+
+        # Si tol es None, usamos el épsilon de máquina
+        if tol is None:
+            tol = epsilon_maquina()
+        elif tol <= 0:
+            raise ValueError(f"tol debe ser positiva, se recibió: {tol}")
+
+        # Convertir x a float explícitamente
+        x = float(x)
+
+        # Caso trivial
+        if x == 0.0:
+            return 0.0
+
+        # Serie de Taylor: sin(x) = Σ (-1)^n * x^(2n+1) / (2n+1)!
+        # Calculamos usando recurrencia:
+        resultado = x         # primer término: x^1 / 1!
+        termino = x
+        n = 1
+        max_iter = 1000
+
+        while True:
+            # Recurrencia del término:
+            # t_{n+1} = t_n * ( -x^2 / ((2n)*(2n+1)) )
+            termino *= - (x * x) / ((2 * n) * (2 * n + 1))
+            nuevo_resultado = resultado + termino
+
+            # Criterio de parada relativo
+            if abs(termino) < tol * abs(nuevo_resultado):
+                resultado = nuevo_resultado
+                break
+
+            resultado = nuevo_resultado
+            n += 1
+
+            if n > max_iter:
+                raise RuntimeError(f"No se alcanzó convergencia en {max_iter} iteraciones.")
+
+        return resultado
+
+    except (TypeError, ValueError, RuntimeError) as e:
+        ###print("Error en mi_seno:", e)
+        return None
+    ##finally:
+        ###print(f"Se intentó calcular sin({original_x}) con tolerancia {tol}.")
+
+
 
 if __name__ == "__main__":
     # Pruebas de isPrime
